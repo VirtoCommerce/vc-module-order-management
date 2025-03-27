@@ -1,0 +1,24 @@
+{
+  "OrderManagement": {
+    "blades": {
+      "hello-world": {
+        "title": "Hello world blade"
+      }
+    }
+  },
+  "permissions": {
+    "OrderManagement:access": "Open OrderManagement menu",
+    "OrderManagement:create": "Create OrderManagement related data",
+    "OrderManagement:read": "View OrderManagement related data",
+    "OrderManagement:update": "Update OrderManagement related data",
+    "OrderManagement:delete": "Delete OrderManagement related data"
+  },
+  "settings": {
+    "OrderManagement": {
+      "Enabled": {
+        "title": "OrderManagement Enabled",
+        "description": "OrderManagement Enabled setting"
+      }
+    }
+  }
+}
