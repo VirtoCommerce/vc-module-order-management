@@ -6,11 +6,11 @@
 
   <platformVersion>3.876.0</platformVersion>
   <dependencies>
-    <!--<dependency id="VirtoCommerce.Core" version="3.800.0" />-->
+    <dependency id="VirtoCommerce.Orders" version="3.843.0" />
   </dependencies>
 
-  <title>VirtoCommerce OrderManagement module</title>
-  <description>VirtoCommerce OrderManagement module</description>
+  <title>New Order Management</title>
+  <description>Functionality for editing the composition of orders.</description>
 
   <authors>
     <author>Evgenii Kolosov</author>

@@ -4,6 +4,12 @@
       "hello-world": {
         "title": "Hello world blade"
       }
+    },
+    "commands": {
+      "new-document": "New document",
+      "cancel-document": "Cancel document",
+      "add-selected": "Add selected",
+      "add-item": "Add item"
     }
   },
   "permissions": {
