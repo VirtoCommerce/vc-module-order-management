@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Добавить товар в заказ"
+      }
+    },
+    "commands": {
+      "add-selected": "Добавить выбранное",
+      "add-item": "Добавить товар"
+    }
+  },
+  "permissions": {
+    "orderManagement:access": "Открыть меню \"Управление заказами\"",
+    "orderManagement:create": "Создать данные для OrderManagement",
+    "orderManagement:read": "Просмотреть данные, связанные с OrderManagement",
+    "orderManagement:update": "Обновить данные OrderManagement",
+    "orderManagement:delete": "Удалить данные OrderManagement"
+  }
+}

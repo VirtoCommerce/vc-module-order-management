@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "注文に商品を追加"
+      }
+    },
+    "commands": {
+      "add-selected": "選択を追加",
+      "add-item": "アイテムを追加"
+    }
+  },
+  "permissions": {
+    "orderManagement:access": "注文管理メニューを開く",
+    "orderManagement:create": "注文管理関連データを作成",
+    "orderManagement:read": "注文管理関連のデータを表示",
+    "orderManagement:update": "注文管理関連データを更新",
+    "orderManagement:delete": "OrderManagement関連のデータを削除"
+  }
+}

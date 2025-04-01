@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Ajouter un article à la commande"
+      }
+    },
+    "commands": {
+      "add-selected": "Ajouter sélection",
+      "add-item": "Ajouter un article"
+    }
+  },
+  "permissions": {
+    "orderManagement:access": "Ouvrir le menu Gestion des commandes",
+    "orderManagement:create": "Créer des données liées à la gestion des commandes",
+    "orderManagement:read": "Voir les données relatives à la gestion des commandes",
+    "orderManagement:update": "Mettre à jour les données liées à la gestion des commandes",
+    "orderManagement:delete": "Supprimer les données liées à la gestion des commandes"
+  }
+}

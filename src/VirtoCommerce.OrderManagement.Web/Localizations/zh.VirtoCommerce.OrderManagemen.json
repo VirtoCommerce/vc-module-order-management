@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "添加到订单"
+      }
+    },
+    "commands": {
+      "add-selected": "添加所选",
+      "add-item": "添加商品"
+    }
+  },
+  "permissions": {
+    "orderManagement:access": "打开订单管理菜单",
+    "orderManagement:create": "创建订单管理相关数据",
+    "orderManagement:read": "查看订单管理相关数据",
+    "orderManagement:update": "更新订单管理相关数据",
+    "orderManagement:delete": "删除订单管理相关数据"
+  }
+}

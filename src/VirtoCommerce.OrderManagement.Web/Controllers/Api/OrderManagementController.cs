@@ -17,7 +17,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
         [Authorize(ModuleConstants.Security.Permissions.Read)]
         public ActionResult<string> Get()
         {
-            return Ok(new { result = "Hello world!" });
+            return Ok();
         }
     }
 }

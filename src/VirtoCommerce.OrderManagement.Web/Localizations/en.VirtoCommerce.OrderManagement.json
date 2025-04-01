@@ -1,9 +1,6 @@
 {
   "orderManagement": {
     "blades": {
-      "hello-world": {
-        "title": "Hello world blade"
-      },
       "catalog-items-select": {
         "title": "Add item to order"
       }
@@ -19,13 +16,5 @@
     "orderManagement:read": "View OrderManagement related data",
     "orderManagement:update": "Update OrderManagement related data",
     "orderManagement:delete": "Delete OrderManagement related data"
-  },
-  "settings": {
-    "OrderManagement": {
-      "Enabled": {
-        "title": "Order Management",
-        "description": "Enabling order management functionality"
-      }
-    }
   }
 }
