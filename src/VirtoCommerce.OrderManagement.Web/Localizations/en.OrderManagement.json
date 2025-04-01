@@ -1,29 +1,30 @@
 {
-  "OrderManagement": {
+  "orderManagement": {
     "blades": {
       "hello-world": {
         "title": "Hello world blade"
+      },
+      "catalog-items-select": {
+        "title": "Add item to order"
       }
     },
     "commands": {
-      "new-document": "New document",
-      "cancel-document": "Cancel document",
       "add-selected": "Add selected",
       "add-item": "Add item"
     }
   },
   "permissions": {
-    "OrderManagement:access": "Open OrderManagement menu",
-    "OrderManagement:create": "Create OrderManagement related data",
-    "OrderManagement:read": "View OrderManagement related data",
-    "OrderManagement:update": "Update OrderManagement related data",
-    "OrderManagement:delete": "Delete OrderManagement related data"
+    "orderManagement:access": "Open OrderManagement menu",
+    "orderManagement:create": "Create OrderManagement related data",
+    "orderManagement:read": "View OrderManagement related data",
+    "orderManagement:update": "Update OrderManagement related data",
+    "orderManagement:delete": "Delete OrderManagement related data"
   },
   "settings": {
     "OrderManagement": {
       "Enabled": {
-        "title": "OrderManagement Enabled",
-        "description": "OrderManagement Enabled setting"
+        "title": "Order Management",
+        "description": "Enabling order management functionality"
       }
     }
   }

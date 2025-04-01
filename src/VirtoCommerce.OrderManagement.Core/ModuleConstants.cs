@@ -9,11 +9,11 @@ public static class ModuleConstants
     {
         public static class Permissions
         {
-            public const string Access = "OrderManagement:access";
-            public const string Create = "OrderManagement:create";
-            public const string Read = "OrderManagement:read";
-            public const string Update = "OrderManagement:update";
-            public const string Delete = "OrderManagement:delete";
+            public const string Access = "orderManagement:access";
+            public const string Create = "orderManagement:create";
+            public const string Read = "orderManagement:read";
+            public const string Update = "orderManagement:update";
+            public const string Delete = "orderManagement:delete";
 
             public static string[] AllPermissions { get; } =
             [
