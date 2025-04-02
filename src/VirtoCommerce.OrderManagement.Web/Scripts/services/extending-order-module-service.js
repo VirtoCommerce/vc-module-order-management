@@ -64,7 +64,7 @@ angular.module('virtoCommerce.orderManagement')
                             blade.currentEntity.items.push(newLineItem);
                             blade.recalculateFn();
                         }, function (error) {
-                            if (error.status == 404) {
+                            if (error.status === 404) {
                                 // Seems no pricing module installed.
                                 // Just add lineitem with zero price.
                                 var newLineItem =
