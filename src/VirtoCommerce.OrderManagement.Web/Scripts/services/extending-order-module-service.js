@@ -1,5 +1,5 @@
 angular.module('virtoCommerce.orderManagement')
-    .factory('virtoCommerce.orderManagement.extendingOrderModuleService', ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderModule.catalogItems', 'virtoCommerce.orderModule.prices',
+    .factory('virtoCommerce.orderManagement.extendingOrderModuleService', ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderManagement.catalogItemsApi', 'virtoCommerce.orderManagement.pricesApi',
         function (bladeNavigationService, catalogItemsApi, pricesApi) {
             var selectedProducts = [];
 
