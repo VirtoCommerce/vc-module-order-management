@@ -7,7 +7,7 @@
   <platformVersion>3.876.0</platformVersion>
   <dependencies>
     <dependency id="VirtoCommerce.Catalog" version="3.822.6" />
-    <dependency id="VirtoCommerce.Orders" version="3.844.0-alpha.1321-vcst-2980" />
+    <dependency id="VirtoCommerce.Orders" version="3.844.0-pr-450-e088" />
   </dependencies>
 
   <title>New Order Management</title>
