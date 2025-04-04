@@ -1,6 +1,6 @@
 angular.module('virtoCommerce.orderManagement')
-    .factory('virtoCommerce.orderManagement.extendingOrderModuleService', ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderManagement.catalogItemsApi', 'virtoCommerce.orderManagement.pricesApi',
-        function (bladeNavigationService, catalogItemsApi, pricesApi) {
+    .factory('virtoCommerce.orderManagement.extendingOrderModuleService', ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderManagement.catalogItemsApi', 'virtoCommerce.orderManagement.pricesApi', 'virtoCommerce.storeModule.stores',
+        function (bladeNavigationService, catalogItemsApi, pricesApi, storesApi) {
             var selectedProducts = [];
 
             function openAddItemWizard(orderBlade) {
@@ -27,7 +27,8 @@ angular.module('virtoCommerce.orderManagement')
                     breadcrumbs: [],
                     toolbarCommands: [
                         {
-                            name: "orderManagement.commands.add-selected", icon: 'fas fa-plus',
+                            name: "orderManagement.commands.add-selected",
+                            icon: 'fas fa-plus',
                             executeMethod: function (blade) {
                                 addProductsToOrder(selectedProducts, orderBlade);
                                 selectedProducts.length = 0;
@@ -39,7 +40,12 @@ angular.module('virtoCommerce.orderManagement')
                         }]
                 };
 
-                bladeNavigationService.showBlade(newBlade, orderBlade);
+                storesApi.get({ id: orderBlade.currentEntity.storeId }, function (store) {
+                    newBlade.catalogId = store.catalog;
+                    bladeNavigationService.showBlade(newBlade, orderBlade);
+                }, function () {
+                    bladeNavigationService.showBlade(newBlade, orderBlade);
+                });
             }
 
             function addProductsToOrder(products, blade) {
@@ -83,7 +89,6 @@ angular.module('virtoCommerce.orderManagement')
                                 blade.currentEntity.items.push(newLineItem);
                                 blade.recalculateFn();
                             }
-
                         });
                     });
                 });
