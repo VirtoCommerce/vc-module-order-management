@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "Open OrderManagement menu",
-    "orderManagement:create": "Create OrderManagement related data",
-    "orderManagement:read": "View OrderManagement related data",
-    "orderManagement:update": "Update OrderManagement related data",
-    "orderManagement:delete": "Delete OrderManagement related data"
+    "order-management:access": "Open OrderManagement menu",
+    "order-management:create": "Create OrderManagement related data",
+    "order-management:read": "View OrderManagement related data",
+    "order-management:update": "Update OrderManagement related data",
+    "order-management:delete": "Delete OrderManagement related data"
   }
 }

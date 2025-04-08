@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "注文管理メニューを開く",
-    "orderManagement:create": "注文管理関連データを作成",
-    "orderManagement:read": "注文管理関連のデータを表示",
-    "orderManagement:update": "注文管理関連データを更新",
-    "orderManagement:delete": "OrderManagement関連のデータを削除"
+    "order-management:access": "注文管理メニューを開く",
+    "order-management:create": "注文管理関連データを作成",
+    "order-management:read": "注文管理関連のデータを表示",
+    "order-management:update": "注文管理関連データを更新",
+    "order-management:delete": "OrderManagement関連のデータを削除"
   }
 }

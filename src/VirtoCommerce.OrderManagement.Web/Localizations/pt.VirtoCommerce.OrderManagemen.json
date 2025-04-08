@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "Abrir menu OrderManagement",
-    "orderManagement:create": "Criar dados relacionados com Gestão de Encomendas",
-    "orderManagement:read": "Ver dados relacionados com Gestão de Encomendas",
-    "orderManagement:update": "Atualizar dados relacionados ao OrderManagement",
-    "orderManagement:delete": "Eliminar dados relacionados com OrderManagement"
+    "order-management:access": "Abrir menu OrderManagement",
+    "order-management:create": "Criar dados relacionados com Gestão de Encomendas",
+    "order-management:read": "Ver dados relacionados com Gestão de Encomendas",
+    "order-management:update": "Atualizar dados relacionados ao OrderManagement",
+    "order-management:delete": "Eliminar dados relacionados com OrderManagement"
   }
 }

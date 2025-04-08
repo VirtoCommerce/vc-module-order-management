@@ -1,5 +1,5 @@
 angular.module('virtoCommerce.orderManagement')
-    .factory('virtoCommerce.orderManagement.extendingOrderModuleService',
+    .factory('virtoCommerce.orderManagement.orderManagementService',
         ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderManagement.catalogItemsApi', 'virtoCommerce.orderManagement.pricesApi', 'virtoCommerce.storeModule.stores', 'platformWebApp.moduleHelper', 'virtoCommerce.orderManagement.graphqlApi',
         function (bladeNavigationService, catalogItemsApi, pricesApi, storesApi, moduleHelper, graphqlApi) {
             var selectedProductIds = [];
@@ -151,41 +151,48 @@ angular.module('virtoCommerce.orderManagement')
             }
 
             return {
-                getAddItemButtonInstance: () => angular.copy({
-                    name: "orderManagement.commands.add-item",
-                    icon: 'fas fa-plus',
-                    executeMethod: function(blade) {
-                        openAddItemWizard(blade);
-                    },
-                    canExecuteMethod: function (blade) {
-                        return blade.currentEntity.operationType === 'CustomerOrder';
-                    },
-                    permission: 'order:update',
-                    index: 0
-                }),
-                getRemoveItemButtonInstance: () => angular.copy({
-                    name: "platform.commands.remove",
-                    icon: 'fas fa-trash-alt',
-                    executeMethod: function (blade) {
-                        var lineItems = blade.currentEntity.items;
-                        var selectedLineItems = _.filter(lineItems, function (x) { return x.selected; });
+                getButtons: () => {
+                    var buttons = [];
 
-                        if (blade.selectedNodeId >= 0) {
-                            var selectedNode = lineItems[blade.selectedNodeId];
-                            if (selectedNode && _.some(selectedLineItems, lineItem => selectedNode.id === lineItem.id)) {
-                                bladeNavigationService.closeChildrenBlades(blade);
+                    buttons.push(angular.copy({
+                        name: "orderManagement.commands.add-item",
+                        icon: 'fas fa-plus',
+                        executeMethod: function (blade) {
+                            openAddItemWizard(blade);
+                        },
+                        canExecuteMethod: function (blade) {
+                            return blade.currentEntity.operationType === 'CustomerOrder';
+                        },
+                        permission: 'order:update',
+                        index: 0
+                    }));
+
+                    buttons.push(angular.copy({
+                        name: "platform.commands.remove",
+                        icon: 'fas fa-trash-alt',
+                        executeMethod: function (blade) {
+                            var lineItems = blade.currentEntity.items;
+                            var selectedLineItems = _.filter(lineItems, function (x) { return x.selected; });
+
+                            if (blade.selectedNodeId >= 0) {
+                                var selectedNode = lineItems[blade.selectedNodeId];
+                                if (selectedNode && _.some(selectedLineItems, lineItem => selectedNode.id === lineItem.id)) {
+                                    bladeNavigationService.closeChildrenBlades(blade);
+                                }
                             }
-                        }
 
-                        blade.currentEntity.items = _.difference(lineItems, selectedLineItems);
-                        blade.selectedAll = false;
-                        blade.recalculateFn();
-                    },
-                    canExecuteMethod: function (blade) {
-                        return _.any(blade.currentEntity.items, function (x) { return x.selected; });
-                    },
-                    permission: 'order:update',
-                    index: 1
-                })
+                            blade.currentEntity.items = _.difference(lineItems, selectedLineItems);
+                            blade.selectedAll = false;
+                            blade.recalculateFn();
+                        },
+                        canExecuteMethod: function (blade) {
+                            return _.any(blade.currentEntity.items, function (x) { return x.selected; });
+                        },
+                        permission: 'order:update',
+                        index: 1
+                    }));
+
+                    return buttons;
+                }
             };
     }]);
