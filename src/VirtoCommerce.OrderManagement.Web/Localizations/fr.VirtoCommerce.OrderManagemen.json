@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "Ouvrir le menu Gestion des commandes",
-    "orderManagement:create": "Créer des données liées à la gestion des commandes",
-    "orderManagement:read": "Voir les données relatives à la gestion des commandes",
-    "orderManagement:update": "Mettre à jour les données liées à la gestion des commandes",
-    "orderManagement:delete": "Supprimer les données liées à la gestion des commandes"
+    "order-management:access": "Ouvrir le menu Gestion des commandes",
+    "order-management:create": "Créer des données liées à la gestion des commandes",
+    "order-management:read": "Voir les données relatives à la gestion des commandes",
+    "order-management:update": "Mettre à jour les données liées à la gestion des commandes",
+    "order-management:delete": "Supprimer les données liées à la gestion des commandes"
   }
 }

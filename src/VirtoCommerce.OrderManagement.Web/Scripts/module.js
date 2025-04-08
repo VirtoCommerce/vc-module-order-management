@@ -6,11 +6,10 @@ if (AppDependencies !== undefined) {
 }
 
 angular.module(moduleName, [])
-    .run(['platformWebApp.toolbarService', 'virtoCommerce.orderManagement.extendingOrderModuleService',
-        function (toolbarService, extendingOrderModuleService) {
-
-            toolbarService.register(extendingOrderModuleService.getAddItemButtonInstance(), 'virtoCommerce.orderModule.customerOrderItemsController');
-
-            toolbarService.register(extendingOrderModuleService.getRemoveItemButtonInstance(), 'virtoCommerce.orderModule.customerOrderItemsController');
+    .run(['platformWebApp.toolbarService', 'virtoCommerce.orderManagement.orderManagementService',
+        function (toolbarService, orderManagementService) {
+            angular.forEach(orderManagementService.getButtons(), function(button) {
+                toolbarService.register(button, 'virtoCommerce.orderModule.customerOrderItemsController');
+            });
         }
     ]);

@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "打开订单管理菜单",
-    "orderManagement:create": "创建订单管理相关数据",
-    "orderManagement:read": "查看订单管理相关数据",
-    "orderManagement:update": "更新订单管理相关数据",
-    "orderManagement:delete": "删除订单管理相关数据"
+    "order-management:access": "打开订单管理菜单",
+    "order-management:create": "创建订单管理相关数据",
+    "order-management:read": "查看订单管理相关数据",
+    "order-management:update": "更新订单管理相关数据",
+    "order-management:delete": "删除订单管理相关数据"
   }
 }

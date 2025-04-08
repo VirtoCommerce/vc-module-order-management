@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "Открыть меню \"Управление заказами\"",
-    "orderManagement:create": "Создать данные для OrderManagement",
-    "orderManagement:read": "Просмотреть данные, связанные с OrderManagement",
-    "orderManagement:update": "Обновить данные OrderManagement",
-    "orderManagement:delete": "Удалить данные OrderManagement"
+    "order-management:access": "Открыть меню \"Управление заказами\"",
+    "order-management:create": "Создать данные для OrderManagement",
+    "order-management:read": "Просмотреть данные, связанные с OrderManagement",
+    "order-management:update": "Обновить данные OrderManagement",
+    "order-management:delete": "Удалить данные OrderManagement"
   }
 }

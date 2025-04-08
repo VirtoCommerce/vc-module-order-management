@@ -11,10 +11,10 @@
     }
   },
   "permissions": {
-    "orderManagement:access": "Bestellmanagement öffnen",
-    "orderManagement:create": "Bestelldaten erstellen",
-    "orderManagement:read": "Bestellbezogene Daten anzeigen",
-    "orderManagement:update": "Bestelldaten aktualisieren",
-    "orderManagement:delete": "Bestellverwaltungsdaten löschen"
+    "order-management:access": "Bestellmanagement öffnen",
+    "order-management:create": "Bestelldaten erstellen",
+    "order-management:read": "Bestellbezogene Daten anzeigen",
+    "order-management:update": "Bestelldaten aktualisieren",
+    "order-management:delete": "Bestellverwaltungsdaten löschen"
   }
 }
