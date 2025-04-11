@@ -1,75 +1,114 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtoCommerce.CatalogModule.Core.Services;
-using VirtoCommerce.OrderManagement.Core;
-using VirtoCommerce.XCatalog.Core.Models;
+using VirtoCommerce.OrderManagement.Data.Authorization;
+using VirtoCommerce.OrdersModule.Core.Model;
+using VirtoCommerce.OrdersModule.Core.Services;
+using VirtoCommerce.OrdersModule.Data.Extensions;
+using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.XCatalog.Core.Queries;
 
 namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
 {
     [Route("api/order-management")]
-    public class OrderManagementController(IItemService itemsService, IAuthorizationService authorizationService, IMediator mediator/*, IOptions<MvcNewtonsoftJsonOptions> jsonOptions*/) : Controller
+    public class OrderManagementController(
+        IMediator mediator,
+        IItemService itemsService,
+        IAuthorizationService authorizationService,
+        ICustomerOrderService customerOrderService,
+        ICustomerOrderTotalsCalculator totalsCalculator) : Controller
     {
         private readonly IMediator _mediator = mediator;
         private readonly IItemService _itemsService = itemsService;
         private readonly IAuthorizationService _authorizationService = authorizationService;
-        // private readonly MvcNewtonsoftJsonOptions _jsonOptions = jsonOptions.Value;
+        private readonly ICustomerOrderService _customerOrderService = customerOrderService;
+        private readonly ICustomerOrderTotalsCalculator _totalsCalculator = totalsCalculator;
 
-        // GET: api/order-management/prices
-        /// <summary>
-        /// Get products with their price
-        /// </summary>
-        /// <param name="searchProductQuery">Search product query</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <remarks>List of products with price</remarks>
-        [HttpPost]
-        [Route("prices")]
-        [Authorize(ModuleConstants.Security.Permissions.Read)]
-        public async Task<ActionResult<SearchProductResponse>> GetProductPrices([FromBody] SearchProductQuery searchProductQuery, CancellationToken cancellationToken)
+        [HttpPut]
+        [Route("add-items/{orderId}")]
+        [Authorize(Core.ModuleConstants.Security.Permissions.Update)]
+        public async Task<ActionResult<CustomerOrder>> AddOrderItems([FromRoute] string orderId, [FromBody] List<string> productIds, CancellationToken cancellationToken)
         {
-            searchProductQuery.IncludeFields = ["items.id", "items.name", "items.code", "items.imgSrc", "items.catalogId", "items.category.id", "items.price.discountAmount.amount", "items.price.sale.amount"];
-            var searchProductResponse = await _mediator.Send(searchProductQuery, cancellationToken);
-            //
-            // var items = await _itemsService.GetNoCloneAsync(searchProductQuery.ObjectIds);
-            // if (items == null)
-            // {
-            return Forbid();
-            // }
+            if (string.IsNullOrEmpty(orderId))
+            {
+                return BadRequest("OrderID cannot be null or empty.");
+            }
 
-            // var item = items.FirstOrDefault();
-            // var searchProductQuery = new SearchProductQuery
-            // {
-            //     StoreId = null,
-            //     CultureName = null,
-            //     CurrencyCode = null,
-            //     Filter = null,
-            //     UserId = null,
-            //     ObjectIds = [.. ids],
-            // };
-            // searchProductQuery.UserId = User;
+            if (productIds.IsNullOrEmpty())
+            {
+                return BadRequest("ProductIds list cannot be null or empty.");
+            }
 
-
-            if (searchProductResponse == null)
+            var order = await _customerOrderService.GetByIdAsync(orderId, CustomerOrderResponseGroup.Full.ToString());
+            if (order == null)
             {
                 return NotFound();
             }
-            //searchProductResponse.Results.First().
 
-            // var authorizationResult = await _authorizationService.AuthorizeAsync(User, items, new PermissionAuthorizationRequirement(ModuleConstants.Security.Permissions.Read));
-            // if (!authorizationResult.Succeeded)
-            // {
-            //     return Forbid();
-            // }
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, order, new OrderManagementAuthorizationRequirement(Core.ModuleConstants.Security.Permissions.Update));
+            if (!authorizationResult.Succeeded)
+            {
+                return Forbid();
+            }
 
-            //It is a important to return serialized data by such way. Instead you have a slow response time for large outputs 
-            //https://github.com/dotnet/aspnetcore/issues/19646
-            // var result = JsonConvert.SerializeObject(items, _jsonOptions.SerializerSettings);
-            //
-            // return Content(result, "application/json");
-            return Ok(searchProductResponse);
+            var products = await _itemsService.GetNoCloneAsync(productIds);
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            authorizationResult = await _authorizationService.AuthorizeAsync(User, products, new OrderManagementAuthorizationRequirement(Core.ModuleConstants.Security.Permissions.Read));
+            if (!authorizationResult.Succeeded)
+            {
+                return Forbid();
+            }
+
+            var searchProductQuery = AbstractTypeFactory<SearchProductQuery>.TryCreateInstance();
+            searchProductQuery.StoreId = order.StoreId;
+            searchProductQuery.CultureName = order.LanguageCode;
+            searchProductQuery.CurrencyCode = order.Currency;
+            searchProductQuery.Filter = "availability:InStock";
+            searchProductQuery.ObjectIds = [.. productIds];
+            searchProductQuery.IncludeFields = ["items.id", "items.price.discountAmount.amount", "items.price.list.amount", "items.price.currency"];
+
+            var searchProductResponse = await _mediator.Send(searchProductQuery, cancellationToken);
+
+            foreach (var product in products)
+            {
+                var lineItem = AbstractTypeFactory<LineItem>.TryCreateInstance();
+                lineItem.ProductId = product.Id;
+                lineItem.CatalogId = product.CatalogId;
+                lineItem.CategoryId = product.CategoryId;
+                lineItem.Name = product.Name;
+                lineItem.ImageUrl = product.ImgSrc;
+                lineItem.Sku = product.Code;
+                lineItem.Quantity = 1;
+                lineItem.Currency = order.Currency;
+                lineItem.Price = 0;
+                lineItem.DiscountAmount = 0;
+
+                var productPrice = searchProductResponse.Results.FirstOrDefault(x => x.Id == product.Id);
+                if (productPrice != null)
+                {
+                    var price = productPrice.AllPrices.FirstOrDefault(x => x.Currency.Code == order.Currency);
+                    lineItem.Price = price?.ListPrice?.Amount ?? 0;
+                    lineItem.DiscountAmount = price?.DiscountAmount?.Amount ?? 0;
+                }
+
+                order.Items.Add(lineItem);
+            }
+
+            _totalsCalculator.CalculateTotals(order);
+            order.FillAllChildOperations();
+
+            //await _customerOrderService.SaveChangesAsync([order]);
+
+            return Ok(order);
         }
     }
 }
