@@ -106,7 +106,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
             _totalsCalculator.CalculateTotals(order);
             order.FillAllChildOperations();
 
-            //await _customerOrderService.SaveChangesAsync([order]);
+            await _customerOrderService.SaveChangesAsync([order]);
 
             return Ok(order);
         }

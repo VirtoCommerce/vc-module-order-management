@@ -55,7 +55,10 @@ angular.module('virtoCommerce.orderManagement')
                 var productIds = _.map(selectedProducts, 'id');
 
                 orderManagementApi.addItems({ orderId: blade.currentEntity.id }, productIds, function (result) {
-                    angular.copy(result, blade.currentEntity);
+                    angular.copy(result, blade.parentBlade.currentEntity);
+                    angular.copy(result, blade.parentBlade.customerOrder);
+                    angular.copy(result, blade.parentBlade.origEntity);
+
                     blade.isLoading = false;
                 });
             }
