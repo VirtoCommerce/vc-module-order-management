@@ -97,8 +97,6 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
 
             await _customerOrderService.SaveChangesAsync([order]);
 
-            order = await _customerOrderService.GetByIdAsync(order.Id, CustomerOrderResponseGroup.Full.ToString());
-
             return Ok(order);
         }
     }
