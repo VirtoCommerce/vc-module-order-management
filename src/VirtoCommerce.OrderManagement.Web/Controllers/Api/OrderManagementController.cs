@@ -34,11 +34,6 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
         [Authorize(Core.ModuleConstants.Security.Permissions.Update)]
         public async Task<ActionResult<CustomerOrder>> AddOrderItems([FromRoute] string orderId, [FromBody] List<string> productIds, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(orderId))
-            {
-                return BadRequest("OrderID cannot be null or empty.");
-            }
-
             if (productIds.IsNullOrEmpty())
             {
                 return BadRequest("ProductIds list cannot be null or empty.");
@@ -73,7 +68,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
             searchProductQuery.CultureName = order.LanguageCode;
             searchProductQuery.CurrencyCode = order.Currency;
             searchProductQuery.Filter = "availability:InStock";
-            searchProductQuery.ObjectIds = [.. productIds];
+            searchProductQuery.ObjectIds = products.Select(x => x.Id).ToArray();
             searchProductQuery.IncludeFields = ["items.id", "items.price.discountAmount.amount", "items.price.list.amount", "items.price.currency"];
 
             var searchProductResponse = await _mediator.Send(searchProductQuery, cancellationToken);
