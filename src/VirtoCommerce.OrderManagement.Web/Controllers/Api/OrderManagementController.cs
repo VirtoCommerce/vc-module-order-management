@@ -9,7 +9,6 @@ using VirtoCommerce.CatalogModule.Core.Services;
 using VirtoCommerce.OrderManagement.Data.Authorization;
 using VirtoCommerce.OrdersModule.Core.Model;
 using VirtoCommerce.OrdersModule.Core.Services;
-using VirtoCommerce.OrdersModule.Data.Extensions;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.XCatalog.Core.Queries;
 
@@ -20,14 +19,12 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
         IMediator mediator,
         IItemService itemsService,
         IAuthorizationService authorizationService,
-        ICustomerOrderService customerOrderService,
-        ICustomerOrderTotalsCalculator totalsCalculator) : Controller
+        ICustomerOrderService customerOrderService) : Controller
     {
         private readonly IMediator _mediator = mediator;
         private readonly IItemService _itemsService = itemsService;
         private readonly IAuthorizationService _authorizationService = authorizationService;
         private readonly ICustomerOrderService _customerOrderService = customerOrderService;
-        private readonly ICustomerOrderTotalsCalculator _totalsCalculator = totalsCalculator;
 
         [HttpPut]
         [Route("add-items/{orderId}")]
@@ -98,10 +95,9 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
                 order.Items.Add(lineItem);
             }
 
-            _totalsCalculator.CalculateTotals(order);
-            order.FillAllChildOperations();
-
             await _customerOrderService.SaveChangesAsync([order]);
+
+            order = await _customerOrderService.GetByIdAsync(order.Id, CustomerOrderResponseGroup.Full.ToString());
 
             return Ok(order);
         }
