@@ -29,7 +29,6 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
 
         [HttpPut]
         [Route("add-items/{orderId}")]
-        [Authorize(Permissions.Update)]
         public async Task<ActionResult<CustomerOrder>> AddOrderItems([FromRoute] string orderId, [FromBody] List<string> productIds, CancellationToken cancellationToken)
         {
             if (productIds.IsNullOrEmpty())
@@ -50,7 +49,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
             }
 
             var products = await _itemsService.GetNoCloneAsync(productIds);
-            if (products == null)
+            if (products.IsNullOrEmpty())
             {
                 return NotFound();
             }
