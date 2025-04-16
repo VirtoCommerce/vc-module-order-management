@@ -1,11 +1,9 @@
 using GraphQL.MicrosoftDI;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtoCommerce.OrderManagement.Core;
 using VirtoCommerce.OrderManagement.ExperienceApi;
-using VirtoCommerce.OrderManagement.Web.Authorization;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
@@ -21,8 +19,6 @@ public class Module : IModule, IHasConfiguration
 
     public void Initialize(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<IAuthorizationHandler, OrderManagementAuthorizationHandler>();
-
         // Register GraphQL schema
         _ = new GraphQLBuilder(serviceCollection, builder =>
         {

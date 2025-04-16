@@ -6,11 +6,12 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VirtoCommerce.CatalogModule.Core.Services;
-using VirtoCommerce.OrderManagement.Data.Authorization;
 using VirtoCommerce.OrdersModule.Core.Model;
 using VirtoCommerce.OrdersModule.Core.Services;
+using VirtoCommerce.OrdersModule.Data.Authorization;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.XCatalog.Core.Queries;
+using Permissions = VirtoCommerce.OrderManagement.Core.ModuleConstants.Security.Permissions;
 
 namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
 {
@@ -28,7 +29,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
 
         [HttpPut]
         [Route("add-items/{orderId}")]
-        [Authorize(Core.ModuleConstants.Security.Permissions.Update)]
+        [Authorize(Permissions.Update)]
         public async Task<ActionResult<CustomerOrder>> AddOrderItems([FromRoute] string orderId, [FromBody] List<string> productIds, CancellationToken cancellationToken)
         {
             if (productIds.IsNullOrEmpty())
@@ -42,7 +43,7 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
                 return NotFound();
             }
 
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, order, new OrderManagementAuthorizationRequirement(Core.ModuleConstants.Security.Permissions.Update));
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, order, new OrderAuthorizationRequirement(Permissions.Update));
             if (!authorizationResult.Succeeded)
             {
                 return Forbid();
@@ -52,12 +53,6 @@ namespace VirtoCommerce.OrderManagement.Web.Controllers.Api
             if (products == null)
             {
                 return NotFound();
-            }
-
-            authorizationResult = await _authorizationService.AuthorizeAsync(User, products, new OrderManagementAuthorizationRequirement(Core.ModuleConstants.Security.Permissions.Read));
-            if (!authorizationResult.Succeeded)
-            {
-                return Forbid();
             }
 
             var searchProductQuery = AbstractTypeFactory<SearchProductQuery>.TryCreateInstance();

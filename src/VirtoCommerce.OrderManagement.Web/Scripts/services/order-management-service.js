@@ -52,13 +52,14 @@ angular.module('virtoCommerce.orderManagement')
 
             function addProductsToOrder(selectedProducts, blade) {
                 blade.isLoading = true;
-                blade.parentBlade.isLoading = true;
 
                 var productIds = _.map(selectedProducts, 'id');
                 
                 orderManagementApi.addItems({ orderId: blade.currentEntity.id }, productIds, function (result) {
                     blade.refresh(result);
-                    blade.parentBlade.refresh(result);
+                    if (angular.isFunction(blade.parentRefresh)) {
+                        blade.parentRefresh(result);
+                    }
                 });
             }
 
