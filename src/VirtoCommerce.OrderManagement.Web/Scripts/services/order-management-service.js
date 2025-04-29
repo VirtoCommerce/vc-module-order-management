@@ -50,11 +50,11 @@ angular.module('virtoCommerce.orderManagement')
                 });
             }
 
-            function addProductsToOrder(selectedProducts, blade) {
+            function addProductsToOrder(products, blade) {
                 blade.isLoading = true;
 
-                var productIds = _.map(selectedProducts, 'id');
-                
+                var productIds = _.map(products, 'id');
+
                 orderManagementApi.addItems({ orderId: blade.currentEntity.id }, productIds, function (result) {
                     blade.refresh(result);
                     if (angular.isFunction(blade.parentRefresh)) {
