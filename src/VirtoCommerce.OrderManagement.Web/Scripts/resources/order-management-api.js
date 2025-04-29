@@ -1,4 +1,4 @@
-angular.module('OrderManagement')
-    .factory('OrderManagement.webApi', ['$resource', function ($resource) {
+angular.module('virtoCommerce.orderManagement')
+    .factory('virtoCommerce.orderManagement.orderManagementApi', ['$resource', function ($resource) {
         return $resource('api/order-management');
     }]);

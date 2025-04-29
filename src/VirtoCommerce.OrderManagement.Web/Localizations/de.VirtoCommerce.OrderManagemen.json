@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Artikel zur Bestellung hinzufügen"
+      }
+    },
+    "commands": {
+      "add-selected": "Ausgewählte hinzufügen",
+      "add-item": "Artikel hinzufügen"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Bestellmanagement öffnen",
+    "order-management:create": "Bestelldaten erstellen",
+    "order-management:read": "Bestellbezogene Daten anzeigen",
+    "order-management:update": "Bestelldaten aktualisieren",
+    "order-management:delete": "Bestellverwaltungsdaten löschen"
+  }
+}

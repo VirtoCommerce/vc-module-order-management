@@ -9,11 +9,11 @@ public static class ModuleConstants
     {
         public static class Permissions
         {
-            public const string Access = "OrderManagement:access";
-            public const string Create = "OrderManagement:create";
-            public const string Read = "OrderManagement:read";
-            public const string Update = "OrderManagement:update";
-            public const string Delete = "OrderManagement:delete";
+            public const string Access = "order-management:access";
+            public const string Create = "order-management:create";
+            public const string Read = "order-management:read";
+            public const string Update = "order-management:update";
+            public const string Delete = "order-management:delete";
 
             public static string[] AllPermissions { get; } =
             [
@@ -30,19 +30,11 @@ public static class ModuleConstants
     {
         public static class General
         {
-            public static SettingDescriptor OrderManagementEnabled { get; } = new()
-            {
-                Name = "OrderManagement.Enabled",
-                GroupName = "OrderManagement|General",
-                ValueType = SettingValueType.Boolean,
-                DefaultValue = false,
-            };
-
             public static IEnumerable<SettingDescriptor> AllGeneralSettings
             {
                 get
                 {
-                    yield return OrderManagementEnabled;
+                    return [];
                 }
             }
         }

@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Dodaj przedmiot do zamówienia"
+      }
+    },
+    "commands": {
+      "add-selected": "Dodaj wybrane",
+      "add-item": "Dodaj przedmiot"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Otwórz menu Zarządzania Zamówieniami",
+    "order-management:create": "Utwórz dane związane z OrderManagement",
+    "order-management:read": "Zobacz dane związane z Zarządzaniem Zamówieniami",
+    "order-management:update": "Aktualizuj dane związane z Zarządzaniem Zamówieniami",
+    "order-management:delete": "Usuń dane związane z OrderManagement"
+  }
+}

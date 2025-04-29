@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Add item to order"
+      }
+    },
+    "commands": {
+      "add-selected": "Add selected",
+      "add-item": "Add item"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Open OrderManagement menu",
+    "order-management:create": "Create OrderManagement related data",
+    "order-management:read": "View OrderManagement related data",
+    "order-management:update": "Update OrderManagement related data",
+    "order-management:delete": "Delete OrderManagement related data"
+  }
+}
