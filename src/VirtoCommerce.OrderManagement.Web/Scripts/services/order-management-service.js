@@ -1,6 +1,7 @@
 angular.module('virtoCommerce.orderManagement')
-    .factory('virtoCommerce.orderManagement.orderManagementService', ['platformWebApp.bladeNavigationService', 'virtoCommerce.orderManagement.catalogItemsApi', 'virtoCommerce.orderManagement.pricesApi',
-        function (bladeNavigationService, catalogItemsApi, pricesApi) {
+    .factory('virtoCommerce.orderManagement.orderManagementService',
+        ['platformWebApp.bladeNavigationService', 'virtoCommerce.storeModule.stores', 'virtoCommerce.orderManagement.orderManagementApi',
+            function (bladeNavigationService, storesApi, orderManagementApi) {
             var selectedProducts = [];
 
             function openAddItemWizard(orderBlade) {
@@ -27,9 +28,10 @@ angular.module('virtoCommerce.orderManagement')
                     breadcrumbs: [],
                     toolbarCommands: [
                         {
-                            name: "orderManagement.commands.add-selected", icon: 'fas fa-plus',
+                            name: "orderManagement.commands.add-selected",
+                            icon: 'fas fa-plus',
                             executeMethod: function (blade) {
-                                addProductsToOrder(selectedProducts, orderBlade);
+                                addProductsToOrder(angular.copy(selectedProducts), orderBlade);
                                 selectedProducts.length = 0;
                                 bladeNavigationService.closeBlade(blade);
                             },
@@ -39,53 +41,25 @@ angular.module('virtoCommerce.orderManagement')
                         }]
                 };
 
-                bladeNavigationService.showBlade(newBlade, orderBlade);
+                // Open store's catalog if possible
+                storesApi.get({ id: orderBlade.currentEntity.storeId }, function (store) {
+                    newBlade.catalogId = store.catalog;
+                    bladeNavigationService.showBlade(newBlade, orderBlade);
+                }, function () {
+                    bladeNavigationService.showBlade(newBlade, orderBlade);
+                });
             }
 
             function addProductsToOrder(products, blade) {
-                angular.forEach(products, function (product) {
-                    catalogItemsApi.get({ id: product.id }, function (data) {
-                        pricesApi.getProductPrices({ id: product.id }, function (prices) {
-                            var price = _.find(prices, function (x) { return x.currency === blade.currentEntity.currency });
+                blade.isLoading = true;
 
-                            var newLineItem =
-                            {
-                                productId: data.id,
-                                catalogId: data.catalogId,
-                                categoryId: data.categoryId,
-                                name: data.name,
-                                imageUrl: data.imgSrc,
-                                sku: data.code,
-                                quantity: 1,
-                                price: price && price.list ? price.list : 0,
-                                discountAmount: price && price.list && price.sale ? price.list - price.sale : 0,
-                                currency: blade.currentEntity.currency
-                            };
-                            blade.currentEntity.items.push(newLineItem);
-                            blade.recalculateFn();
-                        }, function (error) {
-                            if (error.status === 404) {
-                                // Seems no pricing module installed.
-                                // Just add lineitem with zero price.
-                                var newLineItem =
-                                {
-                                    productId: data.id,
-                                    catalogId: data.catalogId,
-                                    categoryId: data.categoryId,
-                                    name: data.name,
-                                    imageUrl: data.imgSrc,
-                                    sku: data.code,
-                                    quantity: 1,
-                                    price: 0,
-                                    discountAmount: 0,
-                                    currency: blade.currentEntity.currency
-                                };
-                                blade.currentEntity.items.push(newLineItem);
-                                blade.recalculateFn();
-                            }
+                var productIds = _.map(products, 'id');
 
-                        });
-                    });
+                orderManagementApi.addItems({ orderId: blade.currentEntity.id }, productIds, function (result) {
+                    blade.refresh(result);
+                    if (angular.isFunction(blade.parentRefresh)) {
+                        blade.parentRefresh(result);
+                    }
                 });
             }
 
