@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Legg til vare i bestillingen"
+      }
+    },
+    "commands": {
+      "add-selected": "Legg til valgte",
+      "add-item": "Legg til vare"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Åpne Bestillingshåndteringsmenyen",
+    "order-management:create": "Opprett data relatert til Bestillingshåndtering",
+    "order-management:read": "Vis data relatert til Bestillingshåndtering",
+    "order-management:update": "Oppdater data relatert til Bestillingshåndtering",
+    "order-management:delete": "Slett data relatert til Bestillingshåndtering"
+  }
+}
