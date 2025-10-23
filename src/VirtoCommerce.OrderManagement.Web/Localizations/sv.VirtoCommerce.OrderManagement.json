@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Lägg till artikel i beställningen"
+      }
+    },
+    "commands": {
+      "add-selected": "Lägg till valda",
+      "add-item": "Lägg till artikel"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Öppna Orderhanteringsmenyn",
+    "order-management:create": "Skapa data relaterad till Orderhantering",
+    "order-management:read": "Visa data relaterad till Orderhantering",
+    "order-management:update": "Uppdatera data relaterad till Orderhantering",
+    "order-management:delete": "Radera data relaterad till Orderhantering"
+  }
+}

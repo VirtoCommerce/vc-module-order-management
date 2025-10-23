@@ -1,0 +1,20 @@
+{
+  "orderManagement": {
+    "blades": {
+      "catalog-items-select": {
+        "title": "Lisää tuote tilaukseen"
+      }
+    },
+    "commands": {
+      "add-selected": "Lisää valitut",
+      "add-item": "Lisää tuote"
+    }
+  },
+  "permissions": {
+    "order-management:access": "Avaa Tilaushallinta-valikko",
+    "order-management:create": "Luo Tilaushallintaan liittyviä tietoja",
+    "order-management:read": "Näytä Tilaushallintaan liittyviä tietoja",
+    "order-management:update": "Päivitä Tilaushallintaan liittyviä tietoja",
+    "order-management:delete": "Poista Tilaushallintaan liittyviä tietoja"
+  }
+}
