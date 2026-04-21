@@ -56,9 +56,68 @@ angular.module('virtoCommerce.orderManagement')
                 var productIds = _.map(products, 'id');
 
                 orderManagementApi.addItems({ orderId: blade.currentEntity.id }, productIds, function (result) {
-                    blade.refresh(result);
-                    if (angular.isFunction(blade.parentRefresh)) {
-                        blade.parentRefresh(result);
+                    if (result) {
+                        var parentBlade = blade.parentBlade;
+                        var baseline = parentBlade && parentBlade.origEntity;
+
+                        // Adopt the fresh server entity (new items, recalculated totals, bumped rowVersion)
+                        // while preserving the user's unsaved edits on existing items and order-level fields.
+                        mergeServerStateInPlace(blade.currentEntity, result, baseline);
+
+                        // Advance the origEntity baseline to the post-save server state so subsequent
+                        // dirty-checks and Cancel use the updated server state as the reference point.
+                        if (baseline) {
+                            mergeServerStateInPlace(baseline, result, null);
+                        }
+                    }
+                    blade.refresh();
+                });
+            }
+
+            // Merges `source` into `target` in place (references are preserved). When `baseline`
+            // is provided, any field where `target` already differs from `baseline` is treated as
+            // a user edit and left untouched; all other fields are overwritten from `source`.
+            // Works at both the root level and per line item (matched by id). New items in
+            // `source` that are not yet in `target` are appended.
+            function mergeServerStateInPlace(target, source, baseline) {
+                if (!target || !source) {
+                    return;
+                }
+
+                var fresh = angular.copy(source);
+
+                _.each(fresh, function (value, key) {
+                    if (key === 'items') {
+                        return;
+                    }
+                    if (typeof value === 'function' || key.charAt(0) === '$') {
+                        return;
+                    }
+                    if (baseline && !angular.equals(baseline[key], target[key])) {
+                        return;
+                    }
+                    target[key] = value;
+                });
+
+                target.items = target.items || [];
+                var targetItemsById = _.indexBy(target.items, 'id');
+                var baselineItemsById = baseline ? _.indexBy(baseline.items || [], 'id') : {};
+
+                _.each(fresh.items || [], function (srcItem) {
+                    var curItem = targetItemsById[srcItem.id];
+                    if (curItem) {
+                        var baseItem = baselineItemsById[srcItem.id];
+                        _.each(srcItem, function (value, key) {
+                            if (typeof value === 'function' || key.charAt(0) === '$') {
+                                return;
+                            }
+                            if (baseItem && !angular.equals(baseItem[key], curItem[key])) {
+                                return;
+                            }
+                            curItem[key] = value;
+                        });
+                    } else {
+                        target.items.push(srcItem);
                     }
                 });
             }

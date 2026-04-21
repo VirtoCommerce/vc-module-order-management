@@ -11,8 +11,8 @@
     <dependency id="VirtoCommerce.XCatalog" version="3.1000.0" optional="true" />
   </dependencies>
 
-  <title>New Order Management</title>
-  <description>Functionality for editing the composition of orders.</description>
+  <title>Order Management (Business Rules)</title>
+  <description>Consolidates order management business rules.</description>
 
   <authors>
     <author>Evgenii Kolosov</author>
@@ -29,7 +29,7 @@
   <moduleType>VirtoCommerce.OrderManagement.Web.Module, VirtoCommerce.OrderManagement.Web</moduleType>
 
   <releaseNotes>First version.</releaseNotes>
-  <copyright>Copyright © 2025 Virto Commerce. All rights reserved</copyright>
+  <copyright>Copyright © 2026 Virto Commerce. All rights reserved</copyright>
   <tags>extension module</tags>
   <useFullTypeNameInSwagger>false</useFullTypeNameInSwagger>
 </module>
