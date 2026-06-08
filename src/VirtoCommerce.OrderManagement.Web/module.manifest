@@ -23,7 +23,7 @@
   </owners>
 
   <projectUrl>https://github.com/VirtoCommerce/vc-module-order-management</projectUrl>
-  <iconUrl>Modules/$(VirtoCommerce.OrderManagement)/Content/logo.png</iconUrl>
+  <iconUrl>Modules/$(VirtoCommerce.OrderManagement)/Content/logo.svg</iconUrl>
   <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
   <assemblyFile>VirtoCommerce.OrderManagement.Web.dll</assemblyFile>
