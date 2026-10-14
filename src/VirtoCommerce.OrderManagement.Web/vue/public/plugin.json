@@ -1,4 +1,3 @@
 {
-  // Order Management admin UI for the Admin Shell host (Module Federation remote); no menu item of its own
   "remote": { "name": "order_management_admin", "exposed": "./Module" }
 }
