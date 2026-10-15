@@ -1,0 +1,3 @@
+{
+  "remote": { "name": "order_management_admin", "exposed": "./Module" }
+}

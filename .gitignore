@@ -337,3 +337,5 @@ ASALocalRun/
 .nuke
 dist/
 **/Properties/launchSettings.json
+# Admin Shell module UI build output (built from src/VirtoCommerce.OrderManagement.Web/vue)
+src/VirtoCommerce.OrderManagement.Web/plugins/
