@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "order-management:access": "פתיחת תפריט ניהול ההזמנות",
+    "order-management:create": "יצירת נתונים הקשורים לניהול הזמנות",
+    "order-management:read": "הצגת נתונים הקשורים לניהול הזמנות",
+    "order-management:update": "עדכון נתונים הקשורים לניהול הזמנות",
+    "order-management:delete": "מחיקת נתונים הקשורים לניהול הזמנות"
+  }
+}
