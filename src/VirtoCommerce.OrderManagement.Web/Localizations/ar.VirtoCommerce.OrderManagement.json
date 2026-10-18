@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "order-management:access": "فتح قائمة إدارة الطلبات",
+    "order-management:create": "إنشاء البيانات المتعلقة بإدارة الطلبات",
+    "order-management:read": "عرض البيانات المتعلقة بإدارة الطلبات",
+    "order-management:update": "تحديث البيانات المتعلقة بإدارة الطلبات",
+    "order-management:delete": "حذف البيانات المتعلقة بإدارة الطلبات"
+  }
+}
