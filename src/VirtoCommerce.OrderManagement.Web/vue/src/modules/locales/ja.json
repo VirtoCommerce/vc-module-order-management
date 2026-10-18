@@ -1,0 +1,16 @@
+{
+  "ORDER_MANAGEMENT": {
+    "ITEMS": {
+      "ADD": "アイテムを追加",
+      "REMOVE": "削除",
+      "IMAGE": "画像",
+      "NAME": "名前"
+    },
+    "ADD_ITEMS": {
+      "TITLE": "注文に商品を追加",
+      "ADD_SELECTED": "選択を追加",
+      "EMPTY": "商品が見つかりません",
+      "CODE": "コード"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "ORDER_MANAGEMENT": {
+    "ITEMS": {
+      "ADD": "Lisää tuote",
+      "REMOVE": "Poista",
+      "IMAGE": "Kuva",
+      "NAME": "Nimi"
+    },
+    "ADD_ITEMS": {
+      "TITLE": "Lisää tuote tilaukseen",
+      "ADD_SELECTED": "Lisää valitut",
+      "EMPTY": "Tuotteita ei löytynyt",
+      "CODE": "Koodi"
+    }
+  }
+}

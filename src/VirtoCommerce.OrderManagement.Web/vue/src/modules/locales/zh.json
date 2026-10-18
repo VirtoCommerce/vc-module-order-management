@@ -1,0 +1,16 @@
+{
+  "ORDER_MANAGEMENT": {
+    "ITEMS": {
+      "ADD": "添加商品",
+      "REMOVE": "移除",
+      "IMAGE": "图片",
+      "NAME": "名称"
+    },
+    "ADD_ITEMS": {
+      "TITLE": "添加到订单",
+      "ADD_SELECTED": "添加所选",
+      "EMPTY": "未找到商品",
+      "CODE": "编码"
+    }
+  }
+}

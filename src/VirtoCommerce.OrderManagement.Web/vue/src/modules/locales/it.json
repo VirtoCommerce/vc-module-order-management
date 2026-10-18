@@ -1,0 +1,16 @@
+{
+  "ORDER_MANAGEMENT": {
+    "ITEMS": {
+      "ADD": "Aggiungi articolo",
+      "REMOVE": "Rimuovi",
+      "IMAGE": "Immagine",
+      "NAME": "Nome"
+    },
+    "ADD_ITEMS": {
+      "TITLE": "Aggiungi articolo all'ordine",
+      "ADD_SELECTED": "Aggiungi selezionati",
+      "EMPTY": "Nessun prodotto trovato",
+      "CODE": "Codice"
+    }
+  }
+}
