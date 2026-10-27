@@ -1,0 +1,16 @@
+{
+  "ORDER_MANAGEMENT": {
+    "ITEMS": {
+      "ADD": "Legg til vare",
+      "REMOVE": "Fjern",
+      "IMAGE": "Bilde",
+      "NAME": "Navn"
+    },
+    "ADD_ITEMS": {
+      "TITLE": "Legg til vare i bestillingen",
+      "ADD_SELECTED": "Legg til valgte",
+      "EMPTY": "Ingen produkter funnet",
+      "CODE": "Kode"
+    }
+  }
+}
